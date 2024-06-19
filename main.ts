@@ -6,13 +6,16 @@ control.onEvent(EventBusSource.MICROBIT_ID_IO_P8, EventBusValue.MICROBIT_PIN_EVT
         sendInstruc()
     }
 })
+control.onEvent(EventBusSource.MICROBIT_ID_IO_P12, EventBusValue.MICROBIT_EVT_ANY, function () {
+    pins.digitalWritePin(DigitalPin.P12, input_port[0])
+})
 control.onEvent(EventBusSource.MICROBIT_ID_IO_P8, EventBusValue.MICROBIT_PIN_EVT_FALL, function () {
     if (pins.digitalReadPin(DigitalPin.P1) == 0) {
         if (pins.digitalReadPin(DigitalPin.P2) == 0) {
             readData()
         }
         pc = pc + 1
-        if (pc == rom.length) {
+        if (pc == opcode.length) {
             pc = 0
         }
     }
@@ -27,7 +30,7 @@ control.onEvent(EventBusSource.MICROBIT_ID_IO_P1, EventBusValue.MICROBIT_PIN_EVT
     reset()
 })
 function sendInstruc () {
-    instruction = rom[pc]
+    instruction = opcode[pc]
     pins.digitalWritePin(DigitalPin.P10, instruction % 2)
     instruction = Math.round(instruction / 2)
     pins.digitalWritePin(DigitalPin.P11, instruction % 2)
@@ -46,8 +49,8 @@ let pc = 0
 let output_port: number[] = []
 let input_port: number[] = []
 let ioaddress: number[] = []
-let rom: number[] = []
-rom = [0, 1]
+let opcode: number[] = []
+opcode = [0, 1]
 ioaddress = [0, 1]
 let data_in = pins.digitalReadPin(DigitalPin.P0)
 input_port = [0, 0, 0]
