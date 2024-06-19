@@ -7,8 +7,11 @@ control.onEvent(EventBusSource.MICROBIT_ID_IO_P8, EventBusValue.MICROBIT_PIN_EVT
     }
 })
 control.onEvent(EventBusSource.MICROBIT_ID_IO_P12, EventBusValue.MICROBIT_EVT_ANY, function () {
-    pins.digitalWritePin(DigitalPin.P12, input_port[0])
+    rrLoop()
 })
+function rrLoop () {
+    input_port[0] = pins.digitalReadPin(DigitalPin.P12)
+}
 control.onEvent(EventBusSource.MICROBIT_ID_IO_P8, EventBusValue.MICROBIT_PIN_EVT_FALL, function () {
     if (pins.digitalReadPin(DigitalPin.P1) == 0) {
         if (pins.digitalReadPin(DigitalPin.P2) == 0) {
@@ -42,6 +45,7 @@ function sendInstruc () {
 function reset () {
     pc = 0
     sendInstruc()
+    rrLoop()
     readData()
 }
 let instruction = 0
