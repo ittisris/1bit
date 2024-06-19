@@ -34,13 +34,13 @@ control.onEvent(EventBusSource.MICROBIT_ID_IO_P1, EventBusValue.MICROBIT_PIN_EVT
 })
 function sendInstruc () {
     instruction = opcode[pc]
-    pins.digitalWritePin(DigitalPin.P10, instruction % 2)
-    instruction = Math.round(instruction / 2)
-    pins.digitalWritePin(DigitalPin.P11, instruction % 2)
-    instruction = Math.round(instruction / 2)
-    pins.digitalWritePin(DigitalPin.P12, instruction % 2)
-    instruction = Math.round(instruction / 2)
     pins.digitalWritePin(DigitalPin.P13, instruction % 2)
+    instruction = Math.round(instruction / 2)
+    pins.digitalWritePin(DigitalPin.P14, instruction % 2)
+    instruction = Math.round(instruction / 2)
+    pins.digitalWritePin(DigitalPin.P15, instruction % 2)
+    instruction = Math.round(instruction / 2)
+    pins.digitalWritePin(DigitalPin.P16, instruction % 2)
 }
 function reset () {
     pc = 0
@@ -54,8 +54,8 @@ let output_port: number[] = []
 let input_port: number[] = []
 let ioaddress: number[] = []
 let opcode: number[] = []
-opcode = [0, 1]
-ioaddress = [0, 1]
+opcode = [3, 1]
+ioaddress = [0, 0]
 let data_in = pins.digitalReadPin(DigitalPin.P0)
 input_port = [0, 0, 0]
 output_port = [0, 0, 0]
