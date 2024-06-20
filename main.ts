@@ -54,6 +54,13 @@ function writeIO () {
     output_port[ioaddress[pc]] = pins.digitalReadPin(DigitalPin.P0)
     showIO()
 }
+input.onButtonPressed(Button.AB, function () {
+    endless = true
+    while (endless) {
+        clkNegEdge()
+        clkPosEdge()
+    }
+})
 input.onButtonPressed(Button.B, function () {
     clkNegEdge()
     clkPosEdge()
@@ -72,6 +79,7 @@ function sendInstruc () {
     pins.digitalWritePin(DigitalPin.P16, instruc % 2)
 }
 function reset () {
+    endless = false
     pins.digitalWritePin(DigitalPin.P8, 1)
     pins.digitalWritePin(DigitalPin.P1, 1)
     pc = 0
@@ -81,6 +89,7 @@ function reset () {
     basic.clearScreen()
 }
 let instruc = 0
+let endless = false
 let pc = 0
 let tmp = 0
 let output_port: number[] = []
@@ -93,9 +102,13 @@ opcode = [
 1,
 2,
 3,
-4
+4,
+5,
+6
 ]
 ioaddress = [
+0,
+1,
 0,
 1,
 0,
