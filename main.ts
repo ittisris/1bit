@@ -1,9 +1,3 @@
-control.onEvent(EventBusSource.MICROBIT_ID_IO_P12, EventBusValue.MICROBIT_EVT_ANY, function () {
-    rrLoop()
-})
-function rrLoop () {
-    input_port[0] = pins.digitalReadPin(DigitalPin.P12)
-}
 input.onButtonPressed(Button.A, function () {
     reset()
 })
@@ -28,6 +22,9 @@ function writeData () {
     output_port[ioaddress[pc]] = pins.digitalReadPin(DigitalPin.P0)
 }
 function readData () {
+    if (pc == 0) {
+        input_port[0] = pins.digitalReadPin(DigitalPin.P12)
+    }
     pins.digitalWritePin(DigitalPin.P0, input_port[ioaddress[pc]])
 }
 input.onButtonPressed(Button.B, function () {
