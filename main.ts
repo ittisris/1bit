@@ -11,7 +11,7 @@ function clkPosEdge () {
     if (pins.digitalReadPin(DigitalPin.P2) == 1) {
         writeData()
     }
-    pins.digitalWritePin(DigitalPin.P8, 1)
+    pins.digitalWritePin(DigitalPin.P1, 1)
     pc = pc + 1
     if (pc == opcode.length) {
         pc = 0
@@ -21,7 +21,7 @@ function clkPosEdge () {
 function clkNegEdge () {
     sendInstruc()
     basic.pause(100)
-    pins.digitalWritePin(DigitalPin.P8, 0)
+    pins.digitalWritePin(DigitalPin.P1, 0)
     basic.pause(500)
 }
 function writeData () {
@@ -47,12 +47,12 @@ function sendInstruc () {
     readData()
 }
 function reset () {
-    pins.digitalWritePin(DigitalPin.P1, 1)
     pins.digitalWritePin(DigitalPin.P8, 1)
+    pins.digitalWritePin(DigitalPin.P1, 1)
     pc = 0
     basic.showString("R")
     basic.pause(100)
-    pins.digitalWritePin(DigitalPin.P1, 0)
+    pins.digitalWritePin(DigitalPin.P8, 0)
 }
 let instruction = 0
 let pc = 0
@@ -62,11 +62,11 @@ let ioaddress: number[] = []
 let opcode: number[] = []
 led.setBrightness(50)
 opcode = [
-1,
-2,
-3,
-4,
-5
+6,
+15,
+0,
+15,
+0
 ]
 ioaddress = [
 0,
@@ -76,8 +76,8 @@ ioaddress = [
 0
 ]
 pins.setPull(DigitalPin.P0, PinPullMode.PullUp)
-pins.setPull(DigitalPin.P1, PinPullMode.PullDown)
-pins.setPull(DigitalPin.P8, PinPullMode.PullUp)
+pins.setPull(DigitalPin.P1, PinPullMode.PullUp)
+pins.setPull(DigitalPin.P8, PinPullMode.PullDown)
 let tmp = pins.digitalReadPin(DigitalPin.P0)
 input_port = [0, 0, 0]
 output_port = [0, 0, 0]
